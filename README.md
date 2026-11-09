@@ -1,5 +1,9 @@
 # mini-EWB
 
+<img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/136d30a3-401b-456b-8a80-b9c428a29fce" />
+
+<img width="2880" height="1800" alt="image" src="https://github.com/user-attachments/assets/99484a32-ee77-4a45-afa3-9cd74b4fbc67" />
+
 Минимальный симулятор цифровых и смешанных схем в духе Electronics Workbench. Написан на Go, интерфейс построен на [cimgui-go](https://github.com/AllenDang/cimgui-go) (Dear ImGui).
 
 Набор компонентов ограничен тем, что нужно для лабораторных работ по цифровой электронике: триггеры и счётчики, комбинационная логика (7447, 74148), АЛУ 74181, ЦАП и АЦП, синтез в базисе И-НЕ с Word Generator, Logic Converter и Logic Analyzer.
