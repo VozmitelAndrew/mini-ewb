@@ -1,0 +1,6 @@
+/mini-ewb
+*.test
+*.out
+.DS_Store
+.idea/
+.vscode/
