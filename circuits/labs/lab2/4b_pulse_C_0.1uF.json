@@ -1,0 +1,609 @@
+{
+  "parts": [
+    {
+      "id": 1,
+      "kind": "text",
+      "x": 0,
+      "y": -10,
+      "props": {
+        "TEXT": "Lab 2.4 (var 4): pulse 2 V, 5 ms (switch closes at 3 ms, opens at 8 ms); R1 = 1k, C = 0.1 uF, R2 = 2k; inverter k = 3"
+      }
+    },
+    {
+      "id": 2,
+      "kind": "text",
+      "x": 0,
+      "y": -8,
+      "props": {
+        "TEXT": "Pause the simulation between 8 and 10 ms to see both spikes on the screen."
+      }
+    },
+    {
+      "id": 3,
+      "kind": "battery",
+      "x": 2,
+      "y": 2,
+      "props": {
+        "V": "2"
+      }
+    },
+    {
+      "id": 4,
+      "kind": "ground",
+      "x": 2,
+      "y": 7
+    },
+    {
+      "id": 5,
+      "kind": "tdswitch",
+      "x": 8,
+      "y": 0,
+      "props": {
+        "TOFF": "8",
+        "TON": "3"
+      }
+    },
+    {
+      "id": 6,
+      "kind": "node",
+      "x": 3,
+      "y": 1
+    },
+    {
+      "id": 7,
+      "kind": "ground",
+      "x": 5,
+      "y": 5
+    },
+    {
+      "id": 8,
+      "kind": "node",
+      "x": 6,
+      "y": 3
+    },
+    {
+      "id": 9,
+      "kind": "node",
+      "x": 14,
+      "y": 2
+    },
+    {
+      "id": 10,
+      "kind": "resistor",
+      "x": 16,
+      "y": 1,
+      "props": {
+        "HOR": "1",
+        "R": "1000"
+      }
+    },
+    {
+      "id": 11,
+      "kind": "capacitor",
+      "x": 22,
+      "y": 1,
+      "props": {
+        "C": "0.1",
+        "HOR": "1"
+      }
+    },
+    {
+      "id": 12,
+      "kind": "opamp",
+      "x": 30,
+      "y": 1
+    },
+    {
+      "id": 13,
+      "kind": "node",
+      "x": 28,
+      "y": 2
+    },
+    {
+      "id": 14,
+      "kind": "resistor",
+      "x": 30,
+      "y": -4,
+      "props": {
+        "HOR": "1",
+        "R": "2000"
+      }
+    },
+    {
+      "id": 15,
+      "kind": "node",
+      "x": 28,
+      "y": -3
+    },
+    {
+      "id": 16,
+      "kind": "node",
+      "x": 38,
+      "y": -3
+    },
+    {
+      "id": 17,
+      "kind": "node",
+      "x": 38,
+      "y": 3
+    },
+    {
+      "id": 18,
+      "kind": "ground",
+      "x": 28,
+      "y": 6
+    },
+    {
+      "id": 19,
+      "kind": "node",
+      "x": 29,
+      "y": 4
+    },
+    {
+      "id": 20,
+      "kind": "node",
+      "x": 38,
+      "y": 3
+    },
+    {
+      "id": 21,
+      "kind": "resistor",
+      "x": 40,
+      "y": 2,
+      "props": {
+        "HOR": "1",
+        "R": "1000"
+      }
+    },
+    {
+      "id": 22,
+      "kind": "opamp",
+      "x": 48,
+      "y": 2
+    },
+    {
+      "id": 23,
+      "kind": "node",
+      "x": 46,
+      "y": 3
+    },
+    {
+      "id": 24,
+      "kind": "resistor",
+      "x": 48,
+      "y": -3,
+      "props": {
+        "HOR": "1",
+        "R": "3000"
+      }
+    },
+    {
+      "id": 25,
+      "kind": "node",
+      "x": 46,
+      "y": -2
+    },
+    {
+      "id": 26,
+      "kind": "node",
+      "x": 56,
+      "y": -2
+    },
+    {
+      "id": 27,
+      "kind": "node",
+      "x": 56,
+      "y": 4
+    },
+    {
+      "id": 28,
+      "kind": "ground",
+      "x": 46,
+      "y": 7
+    },
+    {
+      "id": 29,
+      "kind": "node",
+      "x": 47,
+      "y": 5
+    },
+    {
+      "id": 30,
+      "kind": "scope",
+      "x": 58,
+      "y": -8,
+      "props": {
+        "TB": "1",
+        "VA": "1",
+        "VB": "5"
+      }
+    },
+    {
+      "id": 31,
+      "kind": "node",
+      "x": 56,
+      "y": 4
+    },
+    {
+      "id": 32,
+      "kind": "node",
+      "x": 61,
+      "y": 4
+    },
+    {
+      "id": 33,
+      "kind": "node",
+      "x": 14,
+      "y": 10
+    },
+    {
+      "id": 34,
+      "kind": "node",
+      "x": 59,
+      "y": 10
+    },
+    {
+      "id": 35,
+      "kind": "ground",
+      "x": 62,
+      "y": -2
+    }
+  ],
+  "wires": [
+    {
+      "a": {
+        "part": 3,
+        "pin": "-"
+      },
+      "b": {
+        "part": 4,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "+"
+      },
+      "b": {
+        "part": 6,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 6,
+        "pin": "N"
+      },
+      "b": {
+        "part": 5,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 5,
+        "pin": "B"
+      },
+      "b": {
+        "part": 8,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 8,
+        "pin": "N"
+      },
+      "b": {
+        "part": 7,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 5,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 9,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 9,
+        "pin": "N"
+      },
+      "b": {
+        "part": 10,
+        "pin": "1"
+      }
+    },
+    {
+      "a": {
+        "part": 10,
+        "pin": "2"
+      },
+      "b": {
+        "part": 11,
+        "pin": "1"
+      }
+    },
+    {
+      "a": {
+        "part": 11,
+        "pin": "2"
+      },
+      "b": {
+        "part": 13,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 13,
+        "pin": "N"
+      },
+      "b": {
+        "part": 12,
+        "pin": "-"
+      }
+    },
+    {
+      "a": {
+        "part": 14,
+        "pin": "1"
+      },
+      "b": {
+        "part": 15,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 15,
+        "pin": "N"
+      },
+      "b": {
+        "part": 13,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 14,
+        "pin": "2"
+      },
+      "b": {
+        "part": 16,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 16,
+        "pin": "N"
+      },
+      "b": {
+        "part": 17,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 17,
+        "pin": "N"
+      },
+      "b": {
+        "part": 12,
+        "pin": "OUT"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "+"
+      },
+      "b": {
+        "part": 19,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 19,
+        "pin": "N"
+      },
+      "b": {
+        "part": 18,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 20,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 20,
+        "pin": "N"
+      },
+      "b": {
+        "part": 21,
+        "pin": "1"
+      }
+    },
+    {
+      "a": {
+        "part": 21,
+        "pin": "2"
+      },
+      "b": {
+        "part": 23,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 23,
+        "pin": "N"
+      },
+      "b": {
+        "part": 22,
+        "pin": "-"
+      }
+    },
+    {
+      "a": {
+        "part": 24,
+        "pin": "1"
+      },
+      "b": {
+        "part": 25,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 25,
+        "pin": "N"
+      },
+      "b": {
+        "part": 23,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 24,
+        "pin": "2"
+      },
+      "b": {
+        "part": 26,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 26,
+        "pin": "N"
+      },
+      "b": {
+        "part": 27,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 27,
+        "pin": "N"
+      },
+      "b": {
+        "part": 22,
+        "pin": "OUT"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "+"
+      },
+      "b": {
+        "part": 29,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 29,
+        "pin": "N"
+      },
+      "b": {
+        "part": 28,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 31,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 31,
+        "pin": "N"
+      },
+      "b": {
+        "part": 32,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 32,
+        "pin": "N"
+      },
+      "b": {
+        "part": 30,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 9,
+        "pin": "N"
+      },
+      "b": {
+        "part": 33,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 33,
+        "pin": "N"
+      },
+      "b": {
+        "part": 34,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 34,
+        "pin": "N"
+      },
+      "b": {
+        "part": 30,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 30,
+        "pin": "G"
+      },
+      "b": {
+        "part": 35,
+        "pin": "G"
+      }
+    }
+  ],
+  "next_id": 36,
+  "settings": {
+    "frame_ms": "0.2",
+    "step_us": "1"
+  }
+}

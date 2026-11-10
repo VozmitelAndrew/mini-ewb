@@ -1,0 +1,796 @@
+{
+  "parts": [
+    {
+      "id": 1,
+      "kind": "text",
+      "x": 0,
+      "y": -4,
+      "props": {
+        "TEXT": "Lab 3.2 (var 4): summing counter, modulus 16, master-slave JK flip-flops (J = K = 1)"
+      }
+    },
+    {
+      "id": 2,
+      "kind": "text",
+      "x": 0,
+      "y": -2,
+      "props": {
+        "TEXT": "Space: clock. Each flip-flop toggles on the falling edge of the previous Q"
+      }
+    },
+    {
+      "id": 3,
+      "kind": "switch",
+      "x": 4,
+      "y": 10,
+      "props": {
+        "key": "Space",
+        "state": "0"
+      }
+    },
+    {
+      "id": 4,
+      "kind": "pullup",
+      "x": 1,
+      "y": 8
+    },
+    {
+      "id": 5,
+      "kind": "ground",
+      "x": 1,
+      "y": 14
+    },
+    {
+      "id": 6,
+      "kind": "node",
+      "x": 2,
+      "y": 13
+    },
+    {
+      "id": 7,
+      "kind": "hexdisp",
+      "x": 66,
+      "y": 24,
+      "props": {
+        "LABEL": "count"
+      }
+    },
+    {
+      "id": 8,
+      "kind": "jkff",
+      "x": 20,
+      "y": 10
+    },
+    {
+      "id": 9,
+      "kind": "vcc",
+      "x": 17,
+      "y": 5
+    },
+    {
+      "id": 10,
+      "kind": "node",
+      "x": 18,
+      "y": 11
+    },
+    {
+      "id": 11,
+      "kind": "node",
+      "x": 18,
+      "y": 13
+    },
+    {
+      "id": 12,
+      "kind": "node",
+      "x": 26,
+      "y": 11
+    },
+    {
+      "id": 13,
+      "kind": "probe",
+      "x": 26,
+      "y": 5,
+      "props": {
+        "LABEL": "Q0"
+      }
+    },
+    {
+      "id": 14,
+      "kind": "node",
+      "x": 26,
+      "y": 37
+    },
+    {
+      "id": 15,
+      "kind": "node",
+      "x": 70,
+      "y": 37
+    },
+    {
+      "id": 16,
+      "kind": "jkff",
+      "x": 32,
+      "y": 10
+    },
+    {
+      "id": 17,
+      "kind": "vcc",
+      "x": 29,
+      "y": 5
+    },
+    {
+      "id": 18,
+      "kind": "node",
+      "x": 30,
+      "y": 11
+    },
+    {
+      "id": 19,
+      "kind": "node",
+      "x": 30,
+      "y": 13
+    },
+    {
+      "id": 20,
+      "kind": "node",
+      "x": 28,
+      "y": 11
+    },
+    {
+      "id": 21,
+      "kind": "node",
+      "x": 28,
+      "y": 12
+    },
+    {
+      "id": 22,
+      "kind": "node",
+      "x": 38,
+      "y": 11
+    },
+    {
+      "id": 23,
+      "kind": "probe",
+      "x": 38,
+      "y": 5,
+      "props": {
+        "LABEL": "Q1"
+      }
+    },
+    {
+      "id": 24,
+      "kind": "node",
+      "x": 38,
+      "y": 36
+    },
+    {
+      "id": 25,
+      "kind": "node",
+      "x": 69,
+      "y": 36
+    },
+    {
+      "id": 26,
+      "kind": "jkff",
+      "x": 44,
+      "y": 10
+    },
+    {
+      "id": 27,
+      "kind": "vcc",
+      "x": 41,
+      "y": 5
+    },
+    {
+      "id": 28,
+      "kind": "node",
+      "x": 42,
+      "y": 11
+    },
+    {
+      "id": 29,
+      "kind": "node",
+      "x": 42,
+      "y": 13
+    },
+    {
+      "id": 30,
+      "kind": "node",
+      "x": 40,
+      "y": 11
+    },
+    {
+      "id": 31,
+      "kind": "node",
+      "x": 40,
+      "y": 12
+    },
+    {
+      "id": 32,
+      "kind": "node",
+      "x": 50,
+      "y": 11
+    },
+    {
+      "id": 33,
+      "kind": "probe",
+      "x": 50,
+      "y": 5,
+      "props": {
+        "LABEL": "Q2"
+      }
+    },
+    {
+      "id": 34,
+      "kind": "node",
+      "x": 50,
+      "y": 35
+    },
+    {
+      "id": 35,
+      "kind": "node",
+      "x": 68,
+      "y": 35
+    },
+    {
+      "id": 36,
+      "kind": "jkff",
+      "x": 56,
+      "y": 10
+    },
+    {
+      "id": 37,
+      "kind": "vcc",
+      "x": 53,
+      "y": 5
+    },
+    {
+      "id": 38,
+      "kind": "node",
+      "x": 54,
+      "y": 11
+    },
+    {
+      "id": 39,
+      "kind": "node",
+      "x": 54,
+      "y": 13
+    },
+    {
+      "id": 40,
+      "kind": "node",
+      "x": 52,
+      "y": 11
+    },
+    {
+      "id": 41,
+      "kind": "node",
+      "x": 52,
+      "y": 12
+    },
+    {
+      "id": 42,
+      "kind": "node",
+      "x": 62,
+      "y": 11
+    },
+    {
+      "id": 43,
+      "kind": "probe",
+      "x": 62,
+      "y": 5,
+      "props": {
+        "LABEL": "Q3"
+      }
+    },
+    {
+      "id": 44,
+      "kind": "node",
+      "x": 62,
+      "y": 34
+    },
+    {
+      "id": 45,
+      "kind": "node",
+      "x": 67,
+      "y": 34
+    }
+  ],
+  "wires": [
+    {
+      "a": {
+        "part": 4,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 3,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 5,
+        "pin": "G"
+      },
+      "b": {
+        "part": 6,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 6,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 9,
+        "pin": "+"
+      },
+      "b": {
+        "part": 10,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 10,
+        "pin": "N"
+      },
+      "b": {
+        "part": 8,
+        "pin": "J"
+      }
+    },
+    {
+      "a": {
+        "part": 10,
+        "pin": "N"
+      },
+      "b": {
+        "part": 11,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 11,
+        "pin": "N"
+      },
+      "b": {
+        "part": 8,
+        "pin": "K"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 8,
+        "pin": "CLK"
+      }
+    },
+    {
+      "a": {
+        "part": 8,
+        "pin": "Q"
+      },
+      "b": {
+        "part": 12,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "N"
+      },
+      "b": {
+        "part": 13,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "N"
+      },
+      "b": {
+        "part": 14,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 14,
+        "pin": "N"
+      },
+      "b": {
+        "part": 15,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 15,
+        "pin": "N"
+      },
+      "b": {
+        "part": 7,
+        "pin": "D0"
+      }
+    },
+    {
+      "a": {
+        "part": 17,
+        "pin": "+"
+      },
+      "b": {
+        "part": 18,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 18,
+        "pin": "N"
+      },
+      "b": {
+        "part": 16,
+        "pin": "J"
+      }
+    },
+    {
+      "a": {
+        "part": 18,
+        "pin": "N"
+      },
+      "b": {
+        "part": 19,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 19,
+        "pin": "N"
+      },
+      "b": {
+        "part": 16,
+        "pin": "K"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "N"
+      },
+      "b": {
+        "part": 20,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 20,
+        "pin": "N"
+      },
+      "b": {
+        "part": 21,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 21,
+        "pin": "N"
+      },
+      "b": {
+        "part": 16,
+        "pin": "CLK"
+      }
+    },
+    {
+      "a": {
+        "part": 16,
+        "pin": "Q"
+      },
+      "b": {
+        "part": 22,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "N"
+      },
+      "b": {
+        "part": 23,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "N"
+      },
+      "b": {
+        "part": 24,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 24,
+        "pin": "N"
+      },
+      "b": {
+        "part": 25,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 25,
+        "pin": "N"
+      },
+      "b": {
+        "part": 7,
+        "pin": "D1"
+      }
+    },
+    {
+      "a": {
+        "part": 27,
+        "pin": "+"
+      },
+      "b": {
+        "part": 28,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 28,
+        "pin": "N"
+      },
+      "b": {
+        "part": 26,
+        "pin": "J"
+      }
+    },
+    {
+      "a": {
+        "part": 28,
+        "pin": "N"
+      },
+      "b": {
+        "part": 29,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 29,
+        "pin": "N"
+      },
+      "b": {
+        "part": 26,
+        "pin": "K"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "N"
+      },
+      "b": {
+        "part": 30,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 30,
+        "pin": "N"
+      },
+      "b": {
+        "part": 31,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 31,
+        "pin": "N"
+      },
+      "b": {
+        "part": 26,
+        "pin": "CLK"
+      }
+    },
+    {
+      "a": {
+        "part": 26,
+        "pin": "Q"
+      },
+      "b": {
+        "part": 32,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 32,
+        "pin": "N"
+      },
+      "b": {
+        "part": 33,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 32,
+        "pin": "N"
+      },
+      "b": {
+        "part": 34,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 34,
+        "pin": "N"
+      },
+      "b": {
+        "part": 35,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 35,
+        "pin": "N"
+      },
+      "b": {
+        "part": 7,
+        "pin": "D2"
+      }
+    },
+    {
+      "a": {
+        "part": 37,
+        "pin": "+"
+      },
+      "b": {
+        "part": 38,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 38,
+        "pin": "N"
+      },
+      "b": {
+        "part": 36,
+        "pin": "J"
+      }
+    },
+    {
+      "a": {
+        "part": 38,
+        "pin": "N"
+      },
+      "b": {
+        "part": 39,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 39,
+        "pin": "N"
+      },
+      "b": {
+        "part": 36,
+        "pin": "K"
+      }
+    },
+    {
+      "a": {
+        "part": 32,
+        "pin": "N"
+      },
+      "b": {
+        "part": 40,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 40,
+        "pin": "N"
+      },
+      "b": {
+        "part": 41,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 41,
+        "pin": "N"
+      },
+      "b": {
+        "part": 36,
+        "pin": "CLK"
+      }
+    },
+    {
+      "a": {
+        "part": 36,
+        "pin": "Q"
+      },
+      "b": {
+        "part": 42,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 42,
+        "pin": "N"
+      },
+      "b": {
+        "part": 43,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 42,
+        "pin": "N"
+      },
+      "b": {
+        "part": 44,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 44,
+        "pin": "N"
+      },
+      "b": {
+        "part": 45,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 45,
+        "pin": "N"
+      },
+      "b": {
+        "part": 7,
+        "pin": "D3"
+      }
+    }
+  ],
+  "next_id": 46,
+  "settings": {
+    "frame_ms": "1",
+    "step_us": "1"
+  }
+}

@@ -21,7 +21,8 @@ func newDevice(e *elem) Device {
 	case "clock":
 		return &clock{p: e.ix("+"), n: e.ix("-"), f: p.Num("F"), duty: p.Num("DUTY") / 100, v: p.Num("V")}
 	case "funcgen":
-		return &funcGen{p: e.ix("+"), c: e.ix("COM"), n: e.ix("-"), f: p.Num("F"), a: p.Num("A"), off: p.Num("OFF")}
+		return &funcGen{p: e.ix("+"), c: e.ix("COM"), n: e.ix("-"), f: p.Num("F"), a: p.Num("A"), off: p.Num("OFF"),
+			wave: int(p.Num("WAVE")), ph: p.Num("PH")}
 	case "not":
 		return &inverters{in: e.ixs("A"), out: e.ixs("Y")}
 	case "nand":
@@ -31,15 +32,42 @@ func newDevice(e *elem) Device {
 				in = append(in, i)
 			}
 		}
-		return &nand{in: in, y: e.ix("Y")}
+		return &gate{in: in, y: e.ix("Y"), op: opNand}
+	case "and", "or", "nor":
+		in := make([]int, 0, len(e.pins)-1)
+		for i, pd := range e.pins {
+			if pd.Name != "Y" {
+				in = append(in, i)
+			}
+		}
+		op := map[string]int{"and": opAnd, "or": opOr, "nor": opNor}[p.Kind]
+		return &gate{in: in, y: e.ix("Y"), op: op}
+	case "xor":
+		return &gate{in: e.ixs("1", "2"), y: e.ix("Y"), op: opXor}
 	case "7404":
 		return &inverters{
 			in:  e.ixs("1A", "2A", "3A", "4A", "5A", "6A"),
 			out: e.ixs("1Y", "2Y", "3Y", "4Y", "5Y", "6Y")}
+	case "7427":
+		return gates{
+			{in: e.ixs("1A", "1B", "1C"), y: e.ix("1Y"), op: opNor},
+			{in: e.ixs("2A", "2B", "2C"), y: e.ix("2Y"), op: opNor},
+			{in: e.ixs("3A", "3B", "3C"), y: e.ix("3Y"), op: opNor}}
 	case "rs":
 		return &rsLatch{s: e.ix("S'"), r: e.ix("R'"), q: e.ix("Q"), nq: e.ix("Q'")}
-	case "dff":
-		return &dff{d: e.ix("D"), clk: e.ix("CLK"), s: e.ix("S'"), r: e.ix("R'"), q: e.ix("Q"), nq: e.ix("Q'")}
+	case "dff", "jkff":
+		d := &flipFlop{clk: e.ix("CLK"), q: e.ix("Q"), nq: e.ix("Q'"), direct: p.Num("RS") == 1, d: -1, j: -1, k: -1}
+		if d.direct {
+			d.s, d.r = e.ix("S"), e.ix("R")
+		} else {
+			d.s, d.r = e.ix("S'"), e.ix("R'")
+		}
+		if p.Kind == "dff" {
+			d.d = e.ix("D")
+		} else {
+			d.j, d.k = e.ix("J"), e.ix("K")
+		}
+		return d
 	case "7447":
 		return &bcd7447{in: e.ixs("A", "B", "C", "D"), lt: e.ix("LT'"), rbi: e.ix("RBI'"), bi: e.ix("BI'/RBO'"),
 			seg: e.ixs("OA", "OB", "OC", "OD", "OE", "OF", "OG")}
@@ -55,6 +83,10 @@ func newDevice(e *elem) Device {
 	case "adc":
 		return &adc{vin: e.ix("VIN"), rp: e.ix("VREF+"), rn: e.ix("VREF-"), soc: e.ix("SOC"), oe: e.ix("OE"),
 			d: e.ixs("D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7"), eoc: e.ix("EOC")}
+	case "capacitor":
+		return &capDev{a: e.ix("1"), b: e.ix("2"), c: p.Num("C") * 1e-6}
+	case "opamp":
+		return &opampDev{p: e.ix("+"), n: e.ix("-"), out: e.ix("OUT"), gain: p.Num("A"), vsw: p.Num("VSW")}
 	case "scope":
 		return newScope(e)
 	case "wordgen":
@@ -98,7 +130,16 @@ func (d *resistor) Links(io *IO) { io.WeakLink(d.a, d.b) }
 func (*clock) Eval(*IO)          {}
 func (*funcGen) Eval(*IO)        {}
 func (d *inverters) Eval(io *IO) { d.eval(io) }
-func (d *nand) Eval(io *IO)      { d.eval(io) }
+func (d *gate) Eval(io *IO)      { d.eval(io) }
+
+// gates is a package of independent gates (7427).
+type gates []gate
+
+func (d gates) Eval(io *IO) {
+	for i := range d {
+		d[i].eval(io)
+	}
+}
 
 type resistor struct{ a, b int }
 
@@ -119,12 +160,36 @@ func (d *clock) Links(io *IO) {
 }
 
 type funcGen struct {
-	p, c, n   int
-	f, a, off float64
+	p, c, n       int
+	f, a, off, ph float64
+	wave          int
+}
+
+// emf returns the generator voltage between + and COM at time t.
+func (d *funcGen) emf(t float64) float64 {
+	x := 2*math.Pi*d.f*t + d.ph
+	var v float64
+	switch d.wave {
+	case 1: // triangle in phase with the sine: 0 at x = 0, +1 at x = pi/2
+		u := math.Mod(x/(2*math.Pi)+0.25, 1)
+		if u < 0 {
+			u++
+		}
+		v = 1 - 4*math.Abs(u-0.5)
+	case 2:
+		if math.Sin(x) >= 0 {
+			v = 1
+		} else {
+			v = -1
+		}
+	default:
+		v = math.Sin(x)
+	}
+	return d.a*v + d.off
 }
 
 func (d *funcGen) Links(io *IO) {
-	e := d.a*math.Sin(2*math.Pi*d.f*io.T()) + d.off
+	e := d.emf(io.T())
 	io.Link(d.p, d.c, e)
 	io.Link(d.c, d.n, e)
 }
@@ -137,17 +202,41 @@ func (d *inverters) eval(io *IO) {
 	}
 }
 
-type nand struct {
+const (
+	opNand = iota
+	opAnd
+	opOr
+	opXor
+	opNor
+)
+
+type gate struct {
 	in []int
 	y  int
+	op int
 }
 
-func (d *nand) eval(io *IO) {
-	all := true
+func (d *gate) eval(io *IO) {
+	ones := 0
 	for _, p := range d.in {
-		all = all && io.Hi(p)
+		if io.Hi(p) {
+			ones++
+		}
 	}
-	io.Out(d.y, !all)
+	var v bool
+	switch d.op {
+	case opNand:
+		v = ones < len(d.in)
+	case opAnd:
+		v = ones == len(d.in)
+	case opOr:
+		v = ones > 0
+	case opXor:
+		v = ones%2 == 1
+	case opNor:
+		v = ones == 0
+	}
+	io.Out(d.y, v)
 }
 
 // rsLatch is an asynchronous RS latch with active-low inputs.
@@ -193,22 +282,32 @@ func (d *rsLatch) Commit(io *IO) bool {
 	return d.state != old
 }
 
-// dff is a rising-edge D flip-flop with active-low asynchronous set and reset.
-type dff struct {
-	d, clk, s, r, q, nq int
-	state, prev, inited bool
+// flipFlop is a D flip-flop (rising edge) or a master-slave JK flip-flop (output changes on
+// the falling edge of CLK) with asynchronous set and reset. Async inputs are active low (S', R')
+// or, with direct = true, active high (S, R); an unconnected async input is inactive.
+type flipFlop struct {
+	d, j, k, clk, s, r, q, nq int
+	direct                    bool
+	state, prev, inited       bool
 }
 
-func (d *dff) Eval(io *IO) {
-	s, r := io.Hi(d.s), io.Hi(d.r)
+func (d *flipFlop) async(io *IO) (set, reset bool) {
+	if d.direct {
+		return io.Lit(d.s), io.Lit(d.r)
+	}
+	return !io.Hi(d.s), !io.Hi(d.r)
+}
+
+func (d *flipFlop) Eval(io *IO) {
+	set, reset := d.async(io)
 	switch {
-	case !s && !r:
+	case set && reset:
 		io.Out(d.q, true)
 		io.Out(d.nq, true)
-	case !s:
+	case set:
 		io.Out(d.q, true)
 		io.Out(d.nq, false)
-	case !r:
+	case reset:
 		io.Out(d.q, false)
 		io.Out(d.nq, true)
 	default:
@@ -217,16 +316,28 @@ func (d *dff) Eval(io *IO) {
 	}
 }
 
-func (d *dff) Commit(io *IO) bool {
+func (d *flipFlop) Commit(io *IO) bool {
 	clk := io.Hi(d.clk)
+	set, reset := d.async(io)
 	old := d.state
 	switch {
-	case !io.Hi(d.s):
+	case set && !reset:
 		d.state = true
-	case !io.Hi(d.r):
+	case reset && !set:
 		d.state = false
-	case d.inited && clk && !d.prev:
+	case set && reset:
+	case d.d >= 0 && d.inited && clk && !d.prev:
 		d.state = io.Hi(d.d)
+	case d.d < 0 && d.inited && !clk && d.prev:
+		j, k := io.Hi(d.j), io.Hi(d.k)
+		switch {
+		case j && k:
+			d.state = !d.state
+		case j:
+			d.state = true
+		case k:
+			d.state = false
+		}
 	}
 	d.prev, d.inited = clk, true
 	return d.state != old
@@ -337,19 +448,24 @@ func (d *alu74181) Eval(io *IO) {
 	io.Out(d.p, (t1|t2) != 15)
 }
 
-// dac: Vout = V(-) + (V(+) - V(-)) * code / 256.
+// dac: Vout = V(-) + (V(+) - V(-)) * code / 256. Floating (tri-stated) inputs count as 0.
 type dac struct {
 	d         []int
 	p, n, out int
 }
 
 func (d *dac) Eval(io *IO) {
-	code := float64(io.Bits(d.d))
+	code := 0.0
+	for i, p := range d.d {
+		if io.Lit(p) {
+			code += float64(int(1) << i)
+		}
+	}
 	lo := io.V(d.n)
 	io.Drive(d.out, lo+(io.V(d.p)-lo)*code/256, Strong)
 }
 
-// adc samples VIN on the rising edge of SOC: code = floor(256 * (Vin - Vref-) / (Vref+ - Vref-)).
+// adc samples VIN when SOC goes from 1 to 0: code = floor(256 * (Vin - Vref-) / (Vref+ - Vref-)).
 // EOC goes low for 1 us after the start of conversion. Outputs are driven while OE is high.
 type adc struct {
 	vin, rp, rn, soc, oe, eoc int
@@ -369,7 +485,7 @@ func (d *adc) Eval(io *IO) {
 func (d *adc) Commit(io *IO) bool {
 	soc := io.Hi(d.soc)
 	changed := false
-	if d.inited && soc && !d.prev {
+	if d.inited && !soc && d.prev {
 		d.code = ADCCode(io.V(d.vin), io.V(d.rp), io.V(d.rn))
 		d.eocUntil = io.T() + 1e-6
 		changed = true

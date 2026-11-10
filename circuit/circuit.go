@@ -80,6 +80,8 @@ type Circuit struct {
 	Parts  []*Part `json:"parts"`
 	Wires  []Wire  `json:"wires"`
 	NextID int     `json:"next_id"`
+	// Settings holds editor values stored with the circuit: "step_us", "frame_ms".
+	Settings map[string]string `json:"settings,omitempty"`
 }
 
 func New() *Circuit { return &Circuit{NextID: 1} }

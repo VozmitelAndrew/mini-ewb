@@ -1,0 +1,757 @@
+{
+  "parts": [
+    {
+      "id": 1,
+      "kind": "text",
+      "x": 0,
+      "y": -6,
+      "props": {
+        "TEXT": "Practical 8 (task 6), tasks 4-5 (var 4): 8-bit ADC, Uref = 2 V. Set Uin = Yk (battery), then press Space twice"
+      }
+    },
+    {
+      "id": 2,
+      "kind": "text",
+      "x": 0,
+      "y": -4,
+      "props": {
+        "TEXT": "SOC 1 -\u003e 0 starts a conversion; OE = NOT SOC. Code 10000000 = 0 V, step h = 4/256 = 15.625 mV"
+      }
+    },
+    {
+      "id": 3,
+      "kind": "adc",
+      "x": 30,
+      "y": 10
+    },
+    {
+      "id": 4,
+      "kind": "battery",
+      "x": 8,
+      "y": 10,
+      "props": {
+        "V": "2"
+      }
+    },
+    {
+      "id": 5,
+      "kind": "node",
+      "x": 26,
+      "y": 10
+    },
+    {
+      "id": 6,
+      "kind": "node",
+      "x": 26,
+      "y": 12
+    },
+    {
+      "id": 7,
+      "kind": "ground",
+      "x": 8,
+      "y": 15
+    },
+    {
+      "id": 8,
+      "kind": "battery",
+      "x": 2,
+      "y": 16,
+      "props": {
+        "V": "2"
+      }
+    },
+    {
+      "id": 9,
+      "kind": "ground",
+      "x": 0,
+      "y": 22
+    },
+    {
+      "id": 10,
+      "kind": "node",
+      "x": 1,
+      "y": 16
+    },
+    {
+      "id": 11,
+      "kind": "node",
+      "x": 27,
+      "y": 20
+    },
+    {
+      "id": 12,
+      "kind": "node",
+      "x": 27,
+      "y": 13
+    },
+    {
+      "id": 13,
+      "kind": "battery",
+      "x": 14,
+      "y": 2,
+      "props": {
+        "V": "2.0000"
+      }
+    },
+    {
+      "id": 14,
+      "kind": "node",
+      "x": 24,
+      "y": 2
+    },
+    {
+      "id": 15,
+      "kind": "node",
+      "x": 24,
+      "y": 11
+    },
+    {
+      "id": 16,
+      "kind": "ground",
+      "x": 14,
+      "y": 7
+    },
+    {
+      "id": 17,
+      "kind": "switch",
+      "x": 8,
+      "y": 22,
+      "props": {
+        "key": "Space",
+        "state": "0"
+      }
+    },
+    {
+      "id": 18,
+      "kind": "pullup",
+      "x": 5,
+      "y": 20
+    },
+    {
+      "id": 19,
+      "kind": "ground",
+      "x": 5,
+      "y": 26
+    },
+    {
+      "id": 20,
+      "kind": "node",
+      "x": 6,
+      "y": 25
+    },
+    {
+      "id": 21,
+      "kind": "node",
+      "x": 16,
+      "y": 24
+    },
+    {
+      "id": 22,
+      "kind": "node",
+      "x": 28,
+      "y": 24
+    },
+    {
+      "id": 23,
+      "kind": "node",
+      "x": 28,
+      "y": 14
+    },
+    {
+      "id": 24,
+      "kind": "not",
+      "x": 18,
+      "y": 27
+    },
+    {
+      "id": 25,
+      "kind": "node",
+      "x": 16,
+      "y": 28
+    },
+    {
+      "id": 26,
+      "kind": "node",
+      "x": 29,
+      "y": 28
+    },
+    {
+      "id": 27,
+      "kind": "node",
+      "x": 29,
+      "y": 15
+    },
+    {
+      "id": 28,
+      "kind": "probe",
+      "x": 38,
+      "y": 7,
+      "props": {
+        "LABEL": "D0"
+      }
+    },
+    {
+      "id": 29,
+      "kind": "node",
+      "x": 38,
+      "y": 11
+    },
+    {
+      "id": 30,
+      "kind": "probe",
+      "x": 41,
+      "y": 7,
+      "props": {
+        "LABEL": "D1"
+      }
+    },
+    {
+      "id": 31,
+      "kind": "node",
+      "x": 41,
+      "y": 12
+    },
+    {
+      "id": 32,
+      "kind": "probe",
+      "x": 44,
+      "y": 7,
+      "props": {
+        "LABEL": "D2"
+      }
+    },
+    {
+      "id": 33,
+      "kind": "node",
+      "x": 44,
+      "y": 13
+    },
+    {
+      "id": 34,
+      "kind": "probe",
+      "x": 47,
+      "y": 7,
+      "props": {
+        "LABEL": "D3"
+      }
+    },
+    {
+      "id": 35,
+      "kind": "node",
+      "x": 47,
+      "y": 14
+    },
+    {
+      "id": 36,
+      "kind": "probe",
+      "x": 50,
+      "y": 7,
+      "props": {
+        "LABEL": "D4"
+      }
+    },
+    {
+      "id": 37,
+      "kind": "node",
+      "x": 50,
+      "y": 15
+    },
+    {
+      "id": 38,
+      "kind": "probe",
+      "x": 53,
+      "y": 7,
+      "props": {
+        "LABEL": "D5"
+      }
+    },
+    {
+      "id": 39,
+      "kind": "node",
+      "x": 53,
+      "y": 16
+    },
+    {
+      "id": 40,
+      "kind": "probe",
+      "x": 56,
+      "y": 7,
+      "props": {
+        "LABEL": "D6"
+      }
+    },
+    {
+      "id": 41,
+      "kind": "node",
+      "x": 56,
+      "y": 17
+    },
+    {
+      "id": 42,
+      "kind": "probe",
+      "x": 59,
+      "y": 7,
+      "props": {
+        "LABEL": "D7"
+      }
+    },
+    {
+      "id": 43,
+      "kind": "node",
+      "x": 59,
+      "y": 18
+    },
+    {
+      "id": 44,
+      "kind": "probe",
+      "x": 62,
+      "y": 7,
+      "props": {
+        "LABEL": "EOC"
+      }
+    },
+    {
+      "id": 45,
+      "kind": "node",
+      "x": 62,
+      "y": 19
+    }
+  ],
+  "wires": [
+    {
+      "a": {
+        "part": 4,
+        "pin": "+"
+      },
+      "b": {
+        "part": 5,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 5,
+        "pin": "N"
+      },
+      "b": {
+        "part": 6,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 6,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "VREF+"
+      }
+    },
+    {
+      "a": {
+        "part": 4,
+        "pin": "-"
+      },
+      "b": {
+        "part": 7,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 8,
+        "pin": "+"
+      },
+      "b": {
+        "part": 10,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 10,
+        "pin": "N"
+      },
+      "b": {
+        "part": 9,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 8,
+        "pin": "-"
+      },
+      "b": {
+        "part": 11,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 11,
+        "pin": "N"
+      },
+      "b": {
+        "part": 12,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "VREF-"
+      }
+    },
+    {
+      "a": {
+        "part": 13,
+        "pin": "+"
+      },
+      "b": {
+        "part": 14,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 14,
+        "pin": "N"
+      },
+      "b": {
+        "part": 15,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 15,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "VIN"
+      }
+    },
+    {
+      "a": {
+        "part": 13,
+        "pin": "-"
+      },
+      "b": {
+        "part": 16,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 18,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 17,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 19,
+        "pin": "G"
+      },
+      "b": {
+        "part": 20,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 20,
+        "pin": "N"
+      },
+      "b": {
+        "part": 17,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 17,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 21,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 21,
+        "pin": "N"
+      },
+      "b": {
+        "part": 22,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "N"
+      },
+      "b": {
+        "part": 23,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 23,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "SOC"
+      }
+    },
+    {
+      "a": {
+        "part": 21,
+        "pin": "N"
+      },
+      "b": {
+        "part": 25,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 25,
+        "pin": "N"
+      },
+      "b": {
+        "part": 24,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 24,
+        "pin": "Y"
+      },
+      "b": {
+        "part": 26,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 26,
+        "pin": "N"
+      },
+      "b": {
+        "part": 27,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 27,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "OE"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D0"
+      },
+      "b": {
+        "part": 29,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 29,
+        "pin": "N"
+      },
+      "b": {
+        "part": 28,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D1"
+      },
+      "b": {
+        "part": 31,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 31,
+        "pin": "N"
+      },
+      "b": {
+        "part": 30,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D2"
+      },
+      "b": {
+        "part": 33,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 33,
+        "pin": "N"
+      },
+      "b": {
+        "part": 32,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D3"
+      },
+      "b": {
+        "part": 35,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 35,
+        "pin": "N"
+      },
+      "b": {
+        "part": 34,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D4"
+      },
+      "b": {
+        "part": 37,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 37,
+        "pin": "N"
+      },
+      "b": {
+        "part": 36,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D5"
+      },
+      "b": {
+        "part": 39,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 39,
+        "pin": "N"
+      },
+      "b": {
+        "part": 38,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D6"
+      },
+      "b": {
+        "part": 41,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 41,
+        "pin": "N"
+      },
+      "b": {
+        "part": 40,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "D7"
+      },
+      "b": {
+        "part": 43,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 43,
+        "pin": "N"
+      },
+      "b": {
+        "part": 42,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "EOC"
+      },
+      "b": {
+        "part": 45,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 45,
+        "pin": "N"
+      },
+      "b": {
+        "part": 44,
+        "pin": "IN"
+      }
+    }
+  ],
+  "next_id": 46,
+  "settings": {
+    "frame_ms": "1",
+    "step_us": "1"
+  }
+}

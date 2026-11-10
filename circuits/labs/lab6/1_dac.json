@@ -1,0 +1,1284 @@
+{
+  "parts": [
+    {
+      "id": 1,
+      "kind": "text",
+      "x": 0,
+      "y": -6,
+      "props": {
+        "TEXT": "Lab 6, lab task 1 (var 4): 8-bit DAC, keys 0..7 set D0..D7. Uref = 2 V:"
+      }
+    },
+    {
+      "id": 2,
+      "kind": "text",
+      "x": 0,
+      "y": -4,
+      "props": {
+        "TEXT": "DAC reference 4 V (2*Uref) and a 2 V battery in series: Uout = 4*N/256 - 2"
+      }
+    },
+    {
+      "id": 3,
+      "kind": "dac",
+      "x": 40,
+      "y": 10
+    },
+    {
+      "id": 4,
+      "kind": "switch",
+      "x": 10,
+      "y": 0,
+      "props": {
+        "key": "0",
+        "state": "0"
+      }
+    },
+    {
+      "id": 5,
+      "kind": "pullup",
+      "x": 7,
+      "y": -2
+    },
+    {
+      "id": 6,
+      "kind": "ground",
+      "x": 7,
+      "y": 4
+    },
+    {
+      "id": 7,
+      "kind": "node",
+      "x": 8,
+      "y": 3
+    },
+    {
+      "id": 8,
+      "kind": "probe",
+      "x": 16,
+      "y": -1,
+      "props": {
+        "LABEL": "D0"
+      }
+    },
+    {
+      "id": 9,
+      "kind": "node",
+      "x": 16,
+      "y": 2
+    },
+    {
+      "id": 10,
+      "kind": "node",
+      "x": 36,
+      "y": 2
+    },
+    {
+      "id": 11,
+      "kind": "node",
+      "x": 36,
+      "y": 11
+    },
+    {
+      "id": 12,
+      "kind": "switch",
+      "x": 10,
+      "y": 9,
+      "props": {
+        "key": "1",
+        "state": "0"
+      }
+    },
+    {
+      "id": 13,
+      "kind": "pullup",
+      "x": 7,
+      "y": 7
+    },
+    {
+      "id": 14,
+      "kind": "ground",
+      "x": 7,
+      "y": 13
+    },
+    {
+      "id": 15,
+      "kind": "node",
+      "x": 8,
+      "y": 12
+    },
+    {
+      "id": 16,
+      "kind": "probe",
+      "x": 16,
+      "y": 8,
+      "props": {
+        "LABEL": "D1"
+      }
+    },
+    {
+      "id": 17,
+      "kind": "node",
+      "x": 16,
+      "y": 11
+    },
+    {
+      "id": 18,
+      "kind": "node",
+      "x": 34,
+      "y": 11
+    },
+    {
+      "id": 19,
+      "kind": "node",
+      "x": 34,
+      "y": 12
+    },
+    {
+      "id": 20,
+      "kind": "switch",
+      "x": 10,
+      "y": 18,
+      "props": {
+        "key": "2",
+        "state": "0"
+      }
+    },
+    {
+      "id": 21,
+      "kind": "pullup",
+      "x": 7,
+      "y": 16
+    },
+    {
+      "id": 22,
+      "kind": "ground",
+      "x": 7,
+      "y": 22
+    },
+    {
+      "id": 23,
+      "kind": "node",
+      "x": 8,
+      "y": 21
+    },
+    {
+      "id": 24,
+      "kind": "probe",
+      "x": 16,
+      "y": 17,
+      "props": {
+        "LABEL": "D2"
+      }
+    },
+    {
+      "id": 25,
+      "kind": "node",
+      "x": 16,
+      "y": 20
+    },
+    {
+      "id": 26,
+      "kind": "node",
+      "x": 22,
+      "y": 20
+    },
+    {
+      "id": 27,
+      "kind": "node",
+      "x": 22,
+      "y": 13
+    },
+    {
+      "id": 28,
+      "kind": "switch",
+      "x": 10,
+      "y": 27,
+      "props": {
+        "key": "3",
+        "state": "0"
+      }
+    },
+    {
+      "id": 29,
+      "kind": "pullup",
+      "x": 7,
+      "y": 25
+    },
+    {
+      "id": 30,
+      "kind": "ground",
+      "x": 7,
+      "y": 31
+    },
+    {
+      "id": 31,
+      "kind": "node",
+      "x": 8,
+      "y": 30
+    },
+    {
+      "id": 32,
+      "kind": "probe",
+      "x": 16,
+      "y": 26,
+      "props": {
+        "LABEL": "D3"
+      }
+    },
+    {
+      "id": 33,
+      "kind": "node",
+      "x": 16,
+      "y": 29
+    },
+    {
+      "id": 34,
+      "kind": "node",
+      "x": 24,
+      "y": 29
+    },
+    {
+      "id": 35,
+      "kind": "node",
+      "x": 24,
+      "y": 14
+    },
+    {
+      "id": 36,
+      "kind": "switch",
+      "x": 10,
+      "y": 36,
+      "props": {
+        "key": "4",
+        "state": "0"
+      }
+    },
+    {
+      "id": 37,
+      "kind": "pullup",
+      "x": 7,
+      "y": 34
+    },
+    {
+      "id": 38,
+      "kind": "ground",
+      "x": 7,
+      "y": 40
+    },
+    {
+      "id": 39,
+      "kind": "node",
+      "x": 8,
+      "y": 39
+    },
+    {
+      "id": 40,
+      "kind": "probe",
+      "x": 16,
+      "y": 35,
+      "props": {
+        "LABEL": "D4"
+      }
+    },
+    {
+      "id": 41,
+      "kind": "node",
+      "x": 16,
+      "y": 38
+    },
+    {
+      "id": 42,
+      "kind": "node",
+      "x": 26,
+      "y": 38
+    },
+    {
+      "id": 43,
+      "kind": "node",
+      "x": 26,
+      "y": 15
+    },
+    {
+      "id": 44,
+      "kind": "switch",
+      "x": 10,
+      "y": 45,
+      "props": {
+        "key": "5",
+        "state": "0"
+      }
+    },
+    {
+      "id": 45,
+      "kind": "pullup",
+      "x": 7,
+      "y": 43
+    },
+    {
+      "id": 46,
+      "kind": "ground",
+      "x": 7,
+      "y": 49
+    },
+    {
+      "id": 47,
+      "kind": "node",
+      "x": 8,
+      "y": 48
+    },
+    {
+      "id": 48,
+      "kind": "probe",
+      "x": 16,
+      "y": 44,
+      "props": {
+        "LABEL": "D5"
+      }
+    },
+    {
+      "id": 49,
+      "kind": "node",
+      "x": 16,
+      "y": 47
+    },
+    {
+      "id": 50,
+      "kind": "node",
+      "x": 28,
+      "y": 47
+    },
+    {
+      "id": 51,
+      "kind": "node",
+      "x": 28,
+      "y": 16
+    },
+    {
+      "id": 52,
+      "kind": "switch",
+      "x": 10,
+      "y": 54,
+      "props": {
+        "key": "6",
+        "state": "0"
+      }
+    },
+    {
+      "id": 53,
+      "kind": "pullup",
+      "x": 7,
+      "y": 52
+    },
+    {
+      "id": 54,
+      "kind": "ground",
+      "x": 7,
+      "y": 58
+    },
+    {
+      "id": 55,
+      "kind": "node",
+      "x": 8,
+      "y": 57
+    },
+    {
+      "id": 56,
+      "kind": "probe",
+      "x": 16,
+      "y": 53,
+      "props": {
+        "LABEL": "D6"
+      }
+    },
+    {
+      "id": 57,
+      "kind": "node",
+      "x": 16,
+      "y": 56
+    },
+    {
+      "id": 58,
+      "kind": "node",
+      "x": 30,
+      "y": 56
+    },
+    {
+      "id": 59,
+      "kind": "node",
+      "x": 30,
+      "y": 17
+    },
+    {
+      "id": 60,
+      "kind": "switch",
+      "x": 10,
+      "y": 63,
+      "props": {
+        "key": "7",
+        "state": "0"
+      }
+    },
+    {
+      "id": 61,
+      "kind": "pullup",
+      "x": 7,
+      "y": 61
+    },
+    {
+      "id": 62,
+      "kind": "ground",
+      "x": 7,
+      "y": 67
+    },
+    {
+      "id": 63,
+      "kind": "node",
+      "x": 8,
+      "y": 66
+    },
+    {
+      "id": 64,
+      "kind": "probe",
+      "x": 16,
+      "y": 62,
+      "props": {
+        "LABEL": "D7"
+      }
+    },
+    {
+      "id": 65,
+      "kind": "node",
+      "x": 16,
+      "y": 65
+    },
+    {
+      "id": 66,
+      "kind": "node",
+      "x": 32,
+      "y": 65
+    },
+    {
+      "id": 67,
+      "kind": "node",
+      "x": 32,
+      "y": 18
+    },
+    {
+      "id": 68,
+      "kind": "battery",
+      "x": 41,
+      "y": 22,
+      "props": {
+        "V": "4"
+      }
+    },
+    {
+      "id": 69,
+      "kind": "ground",
+      "x": 41,
+      "y": 27
+    },
+    {
+      "id": 70,
+      "kind": "ground",
+      "x": 43,
+      "y": 21
+    },
+    {
+      "id": 71,
+      "kind": "node",
+      "x": 44,
+      "y": 20
+    },
+    {
+      "id": 72,
+      "kind": "battery",
+      "x": 49,
+      "y": 14,
+      "props": {
+        "V": "2"
+      }
+    },
+    {
+      "id": 73,
+      "kind": "node",
+      "x": 50,
+      "y": 20
+    },
+    {
+      "id": 74,
+      "kind": "resistor",
+      "x": 53,
+      "y": 20,
+      "props": {
+        "R": "10000"
+      }
+    },
+    {
+      "id": 75,
+      "kind": "ground",
+      "x": 53,
+      "y": 25
+    },
+    {
+      "id": 76,
+      "kind": "voltmeter",
+      "x": 56,
+      "y": 19
+    },
+    {
+      "id": 77,
+      "kind": "ground",
+      "x": 61,
+      "y": 22
+    }
+  ],
+  "wires": [
+    {
+      "a": {
+        "part": 5,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 4,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 6,
+        "pin": "G"
+      },
+      "b": {
+        "part": 7,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 7,
+        "pin": "N"
+      },
+      "b": {
+        "part": 4,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 4,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 9,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 9,
+        "pin": "N"
+      },
+      "b": {
+        "part": 8,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 9,
+        "pin": "N"
+      },
+      "b": {
+        "part": 10,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 10,
+        "pin": "N"
+      },
+      "b": {
+        "part": 11,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 11,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D0"
+      }
+    },
+    {
+      "a": {
+        "part": 13,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 12,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 14,
+        "pin": "G"
+      },
+      "b": {
+        "part": 15,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 15,
+        "pin": "N"
+      },
+      "b": {
+        "part": 12,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 12,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 17,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 17,
+        "pin": "N"
+      },
+      "b": {
+        "part": 16,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 17,
+        "pin": "N"
+      },
+      "b": {
+        "part": 18,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 18,
+        "pin": "N"
+      },
+      "b": {
+        "part": 19,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 19,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D1"
+      }
+    },
+    {
+      "a": {
+        "part": 21,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 20,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 22,
+        "pin": "G"
+      },
+      "b": {
+        "part": 23,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 23,
+        "pin": "N"
+      },
+      "b": {
+        "part": 20,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 20,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 25,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 25,
+        "pin": "N"
+      },
+      "b": {
+        "part": 24,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 25,
+        "pin": "N"
+      },
+      "b": {
+        "part": 26,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 26,
+        "pin": "N"
+      },
+      "b": {
+        "part": 27,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 27,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D2"
+      }
+    },
+    {
+      "a": {
+        "part": 29,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 28,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 30,
+        "pin": "G"
+      },
+      "b": {
+        "part": 31,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 31,
+        "pin": "N"
+      },
+      "b": {
+        "part": 28,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 28,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 33,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 33,
+        "pin": "N"
+      },
+      "b": {
+        "part": 32,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 33,
+        "pin": "N"
+      },
+      "b": {
+        "part": 34,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 34,
+        "pin": "N"
+      },
+      "b": {
+        "part": 35,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 35,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D3"
+      }
+    },
+    {
+      "a": {
+        "part": 37,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 36,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 38,
+        "pin": "G"
+      },
+      "b": {
+        "part": 39,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 39,
+        "pin": "N"
+      },
+      "b": {
+        "part": 36,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 36,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 41,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 41,
+        "pin": "N"
+      },
+      "b": {
+        "part": 40,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 41,
+        "pin": "N"
+      },
+      "b": {
+        "part": 42,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 42,
+        "pin": "N"
+      },
+      "b": {
+        "part": 43,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 43,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D4"
+      }
+    },
+    {
+      "a": {
+        "part": 45,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 44,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 46,
+        "pin": "G"
+      },
+      "b": {
+        "part": 47,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 47,
+        "pin": "N"
+      },
+      "b": {
+        "part": 44,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 44,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 49,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 49,
+        "pin": "N"
+      },
+      "b": {
+        "part": 48,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 49,
+        "pin": "N"
+      },
+      "b": {
+        "part": 50,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 50,
+        "pin": "N"
+      },
+      "b": {
+        "part": 51,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 51,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D5"
+      }
+    },
+    {
+      "a": {
+        "part": 53,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 52,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 54,
+        "pin": "G"
+      },
+      "b": {
+        "part": 55,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 55,
+        "pin": "N"
+      },
+      "b": {
+        "part": 52,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 52,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 57,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 57,
+        "pin": "N"
+      },
+      "b": {
+        "part": 56,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 57,
+        "pin": "N"
+      },
+      "b": {
+        "part": 58,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 58,
+        "pin": "N"
+      },
+      "b": {
+        "part": 59,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 59,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D6"
+      }
+    },
+    {
+      "a": {
+        "part": 61,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 60,
+        "pin": "A"
+      }
+    },
+    {
+      "a": {
+        "part": 62,
+        "pin": "G"
+      },
+      "b": {
+        "part": 63,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 63,
+        "pin": "N"
+      },
+      "b": {
+        "part": 60,
+        "pin": "B"
+      }
+    },
+    {
+      "a": {
+        "part": 60,
+        "pin": "COM"
+      },
+      "b": {
+        "part": 65,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 65,
+        "pin": "N"
+      },
+      "b": {
+        "part": 64,
+        "pin": "IN"
+      }
+    },
+    {
+      "a": {
+        "part": 65,
+        "pin": "N"
+      },
+      "b": {
+        "part": 66,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 66,
+        "pin": "N"
+      },
+      "b": {
+        "part": 67,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 67,
+        "pin": "N"
+      },
+      "b": {
+        "part": 3,
+        "pin": "D7"
+      }
+    },
+    {
+      "a": {
+        "part": 68,
+        "pin": "+"
+      },
+      "b": {
+        "part": 3,
+        "pin": "+"
+      }
+    },
+    {
+      "a": {
+        "part": 68,
+        "pin": "-"
+      },
+      "b": {
+        "part": 69,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "-"
+      },
+      "b": {
+        "part": 71,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 71,
+        "pin": "N"
+      },
+      "b": {
+        "part": 70,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 3,
+        "pin": "OUT"
+      },
+      "b": {
+        "part": 72,
+        "pin": "+"
+      }
+    },
+    {
+      "a": {
+        "part": 72,
+        "pin": "-"
+      },
+      "b": {
+        "part": 73,
+        "pin": "N"
+      }
+    },
+    {
+      "a": {
+        "part": 73,
+        "pin": "N"
+      },
+      "b": {
+        "part": 74,
+        "pin": "1"
+      }
+    },
+    {
+      "a": {
+        "part": 74,
+        "pin": "2"
+      },
+      "b": {
+        "part": 75,
+        "pin": "G"
+      }
+    },
+    {
+      "a": {
+        "part": 74,
+        "pin": "1"
+      },
+      "b": {
+        "part": 76,
+        "pin": "+"
+      }
+    },
+    {
+      "a": {
+        "part": 76,
+        "pin": "-"
+      },
+      "b": {
+        "part": 77,
+        "pin": "G"
+      }
+    }
+  ],
+  "next_id": 78,
+  "settings": {
+    "frame_ms": "1",
+    "step_us": "10"
+  }
+}

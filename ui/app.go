@@ -3,6 +3,9 @@ package ui
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/AllenDang/cimgui-go/imgui"
@@ -48,6 +51,11 @@ type App struct {
 	cursors         map[int]*[2]float32
 	conv            map[int]*convState
 	wgText          map[int]*string
+
+	// Tab completion of the file path
+	compList []string
+	compIdx  int
+	compLast string
 }
 
 func NewApp() *App {
@@ -75,7 +83,14 @@ func (a *App) Load(path string) error {
 	}
 	a.c = c
 	a.path = path
+	if v := c.Settings["step_us"]; v != "" {
+		a.stepUs = v
+	}
+	if v := c.Settings["frame_ms"]; v != "" {
+		a.frameMs = v
+	}
 	a.reset()
+	a.running = false
 	return nil
 }
 
@@ -260,11 +275,23 @@ func (a *App) toolbar() {
 			a.reset()
 		}
 		imgui.SameLine()
-		imgui.SetNextItemWidth(240)
-		imgui.InputTextWithHint("##path", "file.json", &a.path, 0, nil)
+		imgui.SetNextItemWidth(360)
+		imgui.InputTextWithHint("##path", "file.json (Tab completes)", &a.path, imgui.InputTextFlagsCallbackCompletion,
+			func(data imgui.InputTextCallbackData) int {
+				if next, ok := a.completePath(a.path); ok {
+					data.DeleteChars(0, data.BufTextLen())
+					data.InsertChars(0, next)
+					a.path = next
+				}
+				return 0
+			})
+		if len(a.compList) > 1 && imgui.IsItemActive() {
+			imgui.SetTooltip(strings.Join(a.compList, "\n"))
+		}
 		imgui.SameLine()
 		if imgui.Button("Save") {
 			a.c.Prune()
+			a.c.Settings = map[string]string{"step_us": a.stepUs, "frame_ms": a.frameMs}
 			if err := a.c.Save(a.path); err != nil {
 				a.status = err.Error()
 			} else {
@@ -307,6 +334,9 @@ func (a *App) toolbar() {
 			state = "running"
 		}
 		msg := fmt.Sprintf("t = %.6f s   %s", a.s.T, state)
+		if a.s.Analog {
+			msg += "   analog (nodal analysis)"
+		}
 		if a.s.Shorted {
 			msg += "   SHORT CIRCUIT"
 		}
@@ -394,6 +424,13 @@ func (a *App) partProps(p *circuit.Part) {
 	if len(d.Props) > 0 {
 		imgui.TextUnformatted("(Enter applies a value)")
 	}
+	if p.Kind == "hexdisp" && imgui.Button("Segments / matrix") {
+		if p.Num("STYLE") == 1 {
+			p.Set("STYLE", "0")
+		} else {
+			p.Set("STYLE", "1")
+		}
+	}
 	if p.Kind == "switch" && imgui.Button("Toggle") {
 		a.s.Toggle(p.ID)
 	}
@@ -462,4 +499,70 @@ func (a *App) splitter(id string, h float32, which int) {
 	case a.splitDrag == which:
 		a.splitDrag = 0
 	}
+}
+
+// completePath completes p to the longest common prefix of the matching directories and .json
+// files; when nothing more is common, repeated calls cycle through the matches.
+func (a *App) completePath(p string) (string, bool) {
+	if len(a.compList) > 1 && p == a.compLast {
+		a.compIdx = (a.compIdx + 1) % len(a.compList)
+		a.compLast = a.compBase(p) + a.compList[a.compIdx]
+		return a.compLast, true
+	}
+	dir, prefix := ".", p
+	if i := strings.LastIndex(p, "/"); i >= 0 {
+		dir, prefix = p[:i+1], p[i+1:]
+	}
+	if strings.HasPrefix(dir, "~/") {
+		if home, err := os.UserHomeDir(); err == nil {
+			dir = filepath.Join(home, dir[2:]) + "/"
+		}
+	}
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		a.compList = nil
+		return "", false
+	}
+	var names []string
+	for _, e := range entries {
+		n := e.Name()
+		if !strings.HasPrefix(n, prefix) || (strings.HasPrefix(n, ".") && !strings.HasPrefix(prefix, ".")) {
+			continue
+		}
+		if e.IsDir() {
+			names = append(names, n+"/")
+		} else if strings.HasSuffix(n, ".json") {
+			names = append(names, n)
+		}
+	}
+	sort.Strings(names)
+	a.compList, a.compIdx = names, -1
+	if len(names) == 0 {
+		return "", false
+	}
+	common := names[0]
+	for _, n := range names[1:] {
+		for !strings.HasPrefix(n, common) {
+			common = common[:len(common)-1]
+		}
+	}
+	base := p[:len(p)-len(prefix)]
+	if len(names) == 1 {
+		a.compList = nil
+	}
+	if common == prefix && len(names) > 1 {
+		a.compIdx = 0
+		a.compLast = base + names[0]
+		return a.compLast, true
+	}
+	a.compLast = base + common
+	return a.compLast, common != prefix
+}
+
+// compBase is p without its last path element.
+func (a *App) compBase(p string) string {
+	if i := strings.LastIndex(strings.TrimSuffix(p, "/"), "/"); i >= 0 {
+		return p[:i+1]
+	}
+	return ""
 }

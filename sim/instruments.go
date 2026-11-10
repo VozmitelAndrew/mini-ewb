@@ -73,6 +73,7 @@ const (
 )
 
 type WordGen struct {
+	off   bool // released while a logic converter analyzes the circuit
 	out   []int
 	Words []uint16
 	Mode  WGMode
@@ -103,6 +104,9 @@ func ParseWords(s string) []uint16 {
 }
 
 func (wg *WordGen) Eval(io *IO) {
+	if wg.off {
+		return
+	}
 	f := io.Part().Num("F")
 	if f > 0 && (wg.Mode == WGCycle || wg.Mode == WGBurst) {
 		i := int(math.Floor((io.T() - wg.t0) * f))
@@ -185,6 +189,15 @@ func (s *Sim) Analyze(partID int) (int, string, error) {
 		return 0, "", errors.New("connect circuit output to OUT")
 	}
 	lc.active, lc.n = true, n
+	setWG := func(off bool) {
+		for _, el := range s.elems {
+			if wg, ok := el.dev.(*WordGen); ok {
+				wg.off = off
+			}
+		}
+	}
+	setWG(true)
+	defer setWG(false)
 	table := make([]byte, 1<<n)
 	for r := range table {
 		lc.row = r
@@ -199,6 +212,7 @@ func (s *Sim) Analyze(partID int) (int, string, error) {
 		}
 	}
 	lc.active = false
+	setWG(false)
 	s.update()
 	return n, string(table), nil
 }

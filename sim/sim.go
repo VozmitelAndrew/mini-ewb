@@ -48,6 +48,7 @@ type committer interface{ Commit(io *IO) bool }
 type recorder interface{ Record(io *IO) }
 
 type elem struct {
+	throwB bool // switches: COM is connected to B
 	part   *circuit.Part
 	pins   []circuit.PinDef
 	pinIdx map[string]int
@@ -117,6 +118,9 @@ type Sim struct {
 
 	Oscillating bool
 	Shorted     bool
+
+	// Analog is set when the circuit has op-amps or capacitors; it is then solved by nodal analysis.
+	Analog bool
 }
 
 func New(c *circuit.Circuit) *Sim {
@@ -135,6 +139,12 @@ func New(c *circuit.Circuit) *Sim {
 		e.dev = newDevice(e)
 		s.elems = append(s.elems, e)
 		s.byPart[p.ID] = e
+		if p.Kind == "opamp" || p.Kind == "capacitor" {
+			s.Analog = true
+		}
+	}
+	for _, e := range s.elems {
+		e.throwB = s.throwB(e)
 	}
 	s.Connect()
 	s.update()
@@ -167,9 +177,9 @@ func (s *Sim) Connect() {
 		}
 	}
 	for i, e := range s.elems {
-		if e.part.Kind == "switch" {
+		if e.part.Kind == "switch" || e.part.Kind == "tdswitch" {
 			throw := "A"
-			if e.part.Str("state") == "1" {
+			if e.throwB {
 				throw = "B"
 			}
 			uf.union(off[i]+e.ix("COM"), off[i]+e.ix(throw))
@@ -204,12 +214,41 @@ func (s *Sim) Connect() {
 			s.pinsOnNet[id]++
 		}
 	}
+
+}
+
+// throwB reports where a switch's COM is connected: manual switches follow their state,
+// time-delay switches connect COM to A from TON until TOFF (ms) and to B otherwise.
+func (s *Sim) throwB(e *elem) bool {
+	switch e.part.Kind {
+	case "switch":
+		return e.part.Str("state") == "1"
+	case "tdswitch":
+		ms := s.T * 1e3
+		return !(ms >= e.part.Num("TON") && ms < e.part.Num("TOFF"))
+	}
+	return false
 }
 
 // Step advances time by Dt.
 func (s *Sim) Step() {
 	s.T += s.Dt
-	s.update()
+	reconnect := false
+	for _, e := range s.elems {
+		if e.part.Kind == "tdswitch" {
+			if b := s.throwB(e); b != e.throwB {
+				e.throwB, reconnect = b, true
+			}
+		}
+	}
+	if reconnect {
+		s.Connect()
+	}
+	if s.Analog {
+		s.solveAnalog(true)
+	} else {
+		s.update()
+	}
 	for _, e := range s.elems {
 		if r, ok := e.dev.(recorder); ok {
 			r.Record(&e.io)
@@ -245,11 +284,16 @@ func (s *Sim) Toggle(partID int) {
 	} else {
 		e.part.Set("state", "1")
 	}
+	e.throwB = s.throwB(e)
 	s.Connect()
 	s.update()
 }
 
 func (s *Sim) update() {
+	if s.Analog {
+		s.solveAnalog(false)
+		return
+	}
 	s.collectLinks()
 	for r := 0; r < maxCommit; r++ {
 		s.settle()

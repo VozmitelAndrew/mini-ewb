@@ -47,7 +47,7 @@ func (d *Def) Geometry(p *Part) (int, int, []PinDef) {
 var (
 	Defs   = map[string]*Def{}
 	Order  []string
-	Groups = []string{"Sources", "Basic", "Indicators", "Gates", "Flip-flops", "ICs", "Converters", "Instruments"}
+	Groups = []string{"Sources", "Basic", "Indicators", "Gates", "Flip-flops", "ICs", "Converters", "Analog", "Instruments"}
 )
 
 func reg(d *Def) {
@@ -107,57 +107,69 @@ func init() {
 		Pins:  []PinDef{{"+", 2, 0}, {"-", 2, 4}},
 		Props: []PropDef{num("F", "Frequency, Hz", "1000"), num("DUTY", "Duty cycle, %", "50"), num("V", "Voltage, V", "5")}})
 	reg(&Def{Kind: "funcgen", Title: "Function generator", Group: "Sources", W: 6, H: 4,
-		Pins:  []PinDef{{"-", 1, 4}, {"COM", 3, 4}, {"+", 5, 4}},
-		Props: []PropDef{num("F", "Frequency, Hz", "1000"), num("A", "Amplitude, V", "1"), num("OFF", "Offset, V", "0")}})
+		Pins: []PinDef{{"-", 1, 4}, {"COM", 3, 4}, {"+", 5, 4}},
+		Props: []PropDef{num("F", "Frequency, Hz", "1000"), num("A", "Amplitude, V", "1"), num("OFF", "Offset, V", "0"),
+			num("WAVE", "Wave (0 sine, 1 triangle, 2 square)", "0"), num("PH", "Phase, rad", "0")}})
 
 	// Basic
-	reg(&Def{Kind: "resistor", Title: "Resistor", Group: "Basic", W: 2, H: 4,
-		Pins: []PinDef{{"1", 1, 0}, {"2", 1, 4}}, Props: []PropDef{num("R", "Resistance, Ohm", "1000")}})
+	reg(&Def{Kind: "resistor", Title: "Resistor", Group: "Basic", Layout: twoTerminal,
+		Props: []PropDef{num("R", "Resistance, Ohm", "1000"), num("HOR", "Horizontal (0/1)", "0")}})
 	reg(&Def{Kind: "switch", Title: "Switch", Group: "Basic", W: 4, H: 4,
-		Pins: []PinDef{{"COM", 0, 2}, {"A", 4, 1}, {"B", 4, 3}},
+		Pins: []PinDef{{"A", 0, 1}, {"B", 0, 3}, {"COM", 4, 2}},
 		Props: []PropDef{{Key: "key", Label: "Key", Default: "Space", Kind: PropKey},
 			{Key: "state", Label: "State (0=A, 1=B)", Default: "0", Kind: PropNum, Live: true}}})
 	reg(&Def{Kind: "node", Title: "Junction", Group: "Basic", W: 0, H: 0,
 		Pins: []PinDef{{"N", 0, 0}}})
+	reg(&Def{Kind: "tdswitch", Title: "Time-delay switch", Group: "Basic", W: 4, H: 4,
+		Pins:  []PinDef{{"A", 0, 1}, {"B", 0, 3}, {"COM", 4, 2}},
+		Props: []PropDef{num("TON", "COM-A from, ms", "1"), num("TOFF", "COM-A until, ms", "2")}})
+	reg(&Def{Kind: "text", Title: "Text", Group: "Basic", W: 8, H: 1,
+		Props: []PropDef{{Key: "TEXT", Label: "Text", Default: "note", Kind: PropText}}})
 
 	// Indicators
 	reg(&Def{Kind: "probe", Title: "Probe", Group: "Indicators", W: 2, H: 2,
-		Pins: []PinDef{{"IN", 1, 2}}})
+		Pins: []PinDef{{"IN", 0, 1}}, Props: []PropDef{label()}})
 	reg(&Def{Kind: "seg7", Title: "7-segment", Group: "Indicators", W: 5, H: 8,
 		Pins: column([]string{"a", "b", "c", "d", "e", "f", "g"}, 0, 1)})
 	reg(&Def{Kind: "hexdisp", Title: "Hex display", Group: "Indicators", W: 5, H: 7,
-		Pins: row([]string{"D3", "D2", "D1", "D0"}, 1, 7)})
+		Pins:  row([]string{"D3", "D2", "D1", "D0"}, 1, 7),
+		Props: []PropDef{label(), live("STYLE", "Style (0 segments, 1 matrix)", "0")}})
 	reg(&Def{Kind: "voltmeter", Title: "Voltmeter", Group: "Indicators", W: 6, H: 2,
 		Pins: []PinDef{{"+", 0, 1}, {"-", 6, 1}}})
 
 	// Gates
 	reg(&Def{Kind: "not", Title: "NOT", Group: "Gates", W: 4, H: 2,
 		Pins: []PinDef{{"A", 0, 1}, {"Y", 4, 1}}})
-	reg(&Def{Kind: "nand", Title: "NAND", Group: "Gates",
-		Props: []PropDef{num("N", "Inputs (2-8)", "2")},
-		Layout: func(p *Part) (int, int, []PinDef) {
-			n := int(p.Num("N"))
-			if n < 2 {
-				n = 2
-			}
-			if n > 8 {
-				n = 8
-			}
-			pins := column(numbered("", 1, n), 0, 1)
-			pins = append(pins, PinDef{"Y", 4, (n + 1) / 2})
-			return 4, n + 1, pins
-		}})
+	for _, g := range []struct{ kind, title string }{{"nand", "NAND"}, {"and", "AND"}, {"or", "OR"}, {"nor", "NOR"}} {
+		reg(&Def{Kind: g.kind, Title: g.title, Group: "Gates",
+			Props: []PropDef{num("N", "Inputs (2-8)", "2")}, Layout: gateLayout})
+	}
+	reg(&Def{Kind: "xor", Title: "XOR", Group: "Gates", W: 4, H: 3,
+		Pins: []PinDef{{"1", 0, 1}, {"2", 0, 2}, {"Y", 4, 1}}})
 
 	// Flip-flops
 	reg(&Def{Kind: "rs", Title: "RS (S', R')", Group: "Flip-flops", W: 5, H: 4,
 		Pins: []PinDef{{"S'", 0, 1}, {"R'", 0, 3}, {"Q", 5, 1}, {"Q'", 5, 3}}})
-	reg(&Def{Kind: "dff", Title: "D flip-flop", Group: "Flip-flops", W: 5, H: 4,
-		Pins: []PinDef{{"D", 0, 1}, {"CLK", 0, 3}, {"S'", 2, 0}, {"R'", 2, 4}, {"Q", 5, 1}, {"Q'", 5, 3}}})
+	reg(&Def{Kind: "dff", Title: "D flip-flop", Group: "Flip-flops",
+		Props: []PropDef{num("RS", "Async S,R (0 inverse, 1 direct)", "0")},
+		Layout: func(p *Part) (int, int, []PinDef) {
+			s, r := asyncPins(p)
+			return 5, 4, []PinDef{{"D", 0, 1}, {"CLK", 0, 3}, {s, 2, 0}, {r, 2, 4}, {"Q", 5, 1}, {"Q'", 5, 3}}
+		}})
+	reg(&Def{Kind: "jkff", Title: "JK flip-flop", Group: "Flip-flops",
+		Props: []PropDef{num("RS", "Async S,R (0 inverse, 1 direct)", "0")},
+		Layout: func(p *Part) (int, int, []PinDef) {
+			s, r := asyncPins(p)
+			return 5, 4, []PinDef{{"J", 0, 1}, {"CLK", 0, 2}, {"K", 0, 3}, {s, 2, 0}, {r, 2, 4}, {"Q", 5, 1}, {"Q'", 5, 3}}
+		}})
 
 	// ICs
 	reg(dip("7404", "7404",
 		[]string{"1A", "1Y", "2A", "2Y", "3A", "3Y", "GND"},
 		[]string{"VCC", "6A", "6Y", "5A", "5Y", "4A", "4Y"}))
+	reg(dip("7427", "7427",
+		[]string{"1A", "1B", "2A", "2B", "2C", "2Y", "GND"},
+		[]string{"VCC", "1C", "1Y", "3C", "3B", "3A", "3Y"}))
 	reg(dip("7447", "7447",
 		[]string{"B", "C", "LT'", "BI'/RBO'", "RBI'", "D", "A", "GND"},
 		[]string{"VCC", "OF", "OG", "OA", "OB", "OC", "OD", "OE"}))
@@ -175,6 +187,13 @@ func init() {
 		Pins: append(append(column([]string{"VIN", "VREF+", "VREF-", "SOC", "OE"}, 0, 1),
 			column(numbered("D", 0, 8), 6, 1)...), PinDef{"EOC", 6, 9})})
 
+	// Analog
+	reg(&Def{Kind: "opamp", Title: "Op-amp", Group: "Analog", W: 6, H: 4,
+		Pins:  []PinDef{{"-", 0, 1}, {"+", 0, 3}, {"OUT", 6, 2}},
+		Props: []PropDef{num("A", "Open-loop gain", "1000000"), num("VSW", "Output swing, V", "20")}})
+	reg(&Def{Kind: "capacitor", Title: "Capacitor", Group: "Analog", Layout: twoTerminal,
+		Props: []PropDef{num("C", "Capacitance, uF", "1"), num("HOR", "Horizontal (0/1)", "0")}})
+
 	// Instruments
 	reg(&Def{Kind: "scope", Title: "Oscilloscope", Group: "Instruments", W: 6, H: 4,
 		Pins: []PinDef{{"A", 1, 4}, {"B", 3, 4}, {"G", 5, 4}},
@@ -190,4 +209,36 @@ func init() {
 	reg(&Def{Kind: "logican", Title: "Logic analyzer", Group: "Instruments", W: 6, H: 17,
 		Pins:  column(numbered("", 1, 16), 0, 1),
 		Props: []PropDef{live("RATE", "Clock, Hz", "10000"), live("CPD", "Clocks/div", "20")}})
+}
+
+func label() PropDef { return PropDef{Key: "LABEL", Label: "Label", Kind: PropText, Live: true} }
+
+func gateLayout(p *Part) (int, int, []PinDef) {
+	n := int(p.Num("N"))
+	if n < 2 {
+		n = 2
+	}
+	if n > 8 {
+		n = 8
+	}
+	pins := column(numbered("", 1, n), 0, 1)
+	pins = append(pins, PinDef{"Y", 4, (n + 1) / 2})
+	return 4, n + 1, pins
+}
+
+// asyncPins names the asynchronous set/reset pins: S', R' (active low) or S, R (active high).
+func asyncPins(p *Part) (string, string) {
+	if p.Num("RS") == 1 {
+		return "S", "R"
+	}
+	return "S'", "R'"
+}
+
+// twoTerminal lays out a resistor or capacitor vertically (pins top and bottom)
+// or, with HOR = 1, horizontally (pins left and right).
+func twoTerminal(p *Part) (int, int, []PinDef) {
+	if p.Num("HOR") == 1 {
+		return 4, 2, []PinDef{{"1", 0, 1}, {"2", 4, 1}}
+	}
+	return 2, 4, []PinDef{{"1", 1, 0}, {"2", 1, 4}}
 }
